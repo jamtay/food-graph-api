@@ -1,9 +1,9 @@
 const User = {
-  posts: ({ id }, args, context) => {
-    return context.prisma.user({ id }).posts()
-  },
+  foods: ({ id }, args, context) => {
+    return context.prisma.user({ id }).foods()
+  }
 }
 
 module.exports = {
-  User,
+  User
 }

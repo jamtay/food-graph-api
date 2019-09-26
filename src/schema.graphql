@@ -1,20 +1,18 @@
 type Query {
-  feed: [Post!]!
-  drafts: [Post!]!
-  post(id: ID!): Post
   me: User
+  allFoods: [FoodItem!]!
+  food(id: ID!): FoodItem
+  myFoods: [FoodItem!]!
 }
 
 type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
-  createDraft(title: String!, content: String!): Post!
-  publish(id: ID!): Post!
-  deletePost(id: ID!): Post!
+  createFoodItem(name: String!, description: String, cost: Float, calories: Int, protein: Int, vegan: Boolean): FoodItem!
 }
 
 type Subscription {
-  feedSubscription: Post
+  foodSubscription: FoodItem
 }
 
 type AuthPayload {
@@ -26,13 +24,16 @@ type User {
   id: ID!
   email: String!
   name: String!
-  posts: [Post!]!
+  foods: [FoodItem]!
 }
 
-type Post {
+type FoodItem {
   id: ID!
-  published: Boolean!
-  title: String!
-  content: String!
-  author: User!
+  name: String!
+  description: String
+  cost: Float
+  calories: Int
+  protein: Int
+  vegan: Boolean
+  createdBy: User!
 }

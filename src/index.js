@@ -8,9 +8,9 @@ const server = new GraphQLServer({
   context: request => {
     return {
       ...request,
-      prisma,
+      prisma
     }
-  },
+  }
 })
 
 server.start(() => console.log('Server is running on http://localhost:4000'))

@@ -9,8 +9,8 @@ const Query = {
     const where = {
       published: false,
       author: {
-        id,
-      },
+        id
+      }
     }
     return context.prisma.posts({ where })
   },
@@ -21,6 +21,23 @@ const Query = {
     const id = getUserId(context)
     return context.prisma.user({ id })
   },
+  allFoods(parent, args, context) {
+    getUserId(context)
+    return context.prisma.foodItems()
+  },
+  food(parent, { id }, context) {
+    getUserId(context)
+    return context.prisma.foodItem({ id })
+  },
+  myFoods(parent, args, context) {
+    const id = getUserId(context)
+    const where = {
+      createdBy: {
+        id
+      }
+    }
+    return context.prisma.foodItems({ where })
+  }
 }
 
 module.exports = { Query }

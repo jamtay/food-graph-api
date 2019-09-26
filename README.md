@@ -3,7 +3,9 @@
 ## Commands
 
 * `yarn start` starts GraphQL server on `http://localhost:4000`
-* `yarn prisma <subcommand>` gives access to local version of Prisma CLI (e.g. `yarn prisma deploy`)
+* `yarn prisma deploy` deploys and generates prisma db
+* `yarn prisma seed` adds data defined in `food-graph-api/prisma/seed.graphql` to your database
+* `yarn prisma info` gets information about db, including url for viewing
 
 ## Project structure
 
@@ -21,3 +23,119 @@
 | `　　├── resolvers` (_directory_) | _Contains the implementation of the resolvers for the application schema_ |
 | `　　└── generated` (_directory_) | _Contains generated files_ |
 | `　　　　└── prisma-client` (_directory_) | The generated Prisma client |
+
+
+## To use
+
+After running 
+
+1. Go to localhost:4000
+2. Enter one of the following queries or mutations in the playground
+
+```
+# Simple get information about schema query
+
+# Sign up a new user
+mutation {
+  signup(
+    name: "Alice"
+    email: "alice@prisma.io"
+    password: "graphql"
+  ) {
+    token
+    user {
+      id
+    }
+  }
+}
+
+#Login with user 
+mutation {
+  login(
+    email: "alice@prisma.io"
+    password: "graphql"
+  ) {
+    token
+    user {
+      email
+      links {
+        url
+        description
+      }
+    }
+  }
+}
+
+# Set token in header (all below requests need a token)
+{
+  "Authorization": "Bearer __TOKEN__"
+}
+
+# Simple get all information about the food items
+query {
+  allFoods {
+    links {
+      id,
+      name,
+      description,
+      cost,
+      calories,
+      protein,
+      vegan,
+      createdBy {
+        id,
+        email,
+        name
+      }
+    }
+  }
+}
+
+# Add a new food item
+mutation {
+  createFoodItem(
+    name:"new-one",
+    description:"description",
+    cost:12,
+    calories:10,
+    protein: 10,
+    vegan: true
+  ) {
+    id,
+    name,
+    description
+  }
+}
+
+# Get an individual food item
+query {
+  food(id:"cjz1o0aw5xzaz0b53am7cjsv5") {
+    id,
+    name,
+    description
+  }
+}
+
+# Get my food items (related to logged in user)
+query {
+  myFoods {
+    id,
+    name,
+    description
+  }
+}
+
+# Subscription to inform when a new food item is created 
+subscription {
+  foodSubscription {
+      id
+      name
+      description
+      createdBy {
+        id
+        name
+        email
+      }
+  }
+}
+```

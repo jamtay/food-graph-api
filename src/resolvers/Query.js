@@ -1,22 +1,6 @@
 const { getUserId } = require('../utils')
 
 const Query = {
-  feed(parent, args, context) {
-    return context.prisma.posts({ where: { published: true } })
-  },
-  drafts(parent, args, context) {
-    const id = getUserId(context)
-    const where = {
-      published: false,
-      author: {
-        id
-      }
-    }
-    return context.prisma.posts({ where })
-  },
-  post(parent, { id }, context) {
-    return context.prisma.post({ id })
-  },
   me(parent, args, context) {
     const id = getUserId(context)
     return context.prisma.user({ id })
@@ -37,6 +21,23 @@ const Query = {
       }
     }
     return context.prisma.foodItems({ where })
+  },
+  allMeals(parent, args, context) {
+    getUserId(context)
+    return context.prisma.meals()
+  },
+  meal(parent, { id }, context) {
+    getUserId(context)
+    return context.prisma.meal({ id })
+  },
+  myMeals(parent, args, context) {
+    const id = getUserId(context)
+    const where = {
+      createdBy: {
+        id
+      }
+    }
+    return context.prisma.meals({ where })
   }
 }
 

@@ -3,12 +3,16 @@ type Query {
   allFoods: [FoodItem!]!
   food(id: ID!): FoodItem
   myFoods: [FoodItem!]!
+  allMeals: [Meal!]!
+  meal(id: ID!): Meal
+  myMeals: [Meal!]!
 }
 
 type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
   createFoodItem(name: String!, description: String, cost: Float, calories: Int, protein: Int, vegan: Boolean): FoodItem!
+  createMeal(name: String!, description: String, cost: Float, calories: Int, protein: Int, vegan: Boolean, location: String): Meal!
 }
 
 type Subscription {
@@ -24,7 +28,8 @@ type User {
   id: ID!
   email: String!
   name: String!
-  foods: [FoodItem]!
+  foods: [FoodItem!]!
+  meals: [Meal!]!
 }
 
 type FoodItem {
@@ -36,4 +41,18 @@ type FoodItem {
   protein: Int
   vegan: Boolean
   createdBy: User!
+  mealsPartOf: [Meal!]!
+}
+
+type Meal {
+  id: ID!
+  name: String!
+  description: String
+  cost: Float
+  calories: Int
+  protein: Int
+  vegan: Boolean
+  location: String
+  createdBy: User!
+  foods: [FoodItem!]!
 }

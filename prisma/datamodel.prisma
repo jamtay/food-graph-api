@@ -4,6 +4,7 @@ type User {
   password: String!
   name: String!
   foods: [FoodItem!]!
+  meals: [Meal!]!
 }
 
 type FoodItem {
@@ -17,4 +18,20 @@ type FoodItem {
   protein: Int
   vegan: Boolean
   createdBy: User!
+  mealsPartOf: [Meal!]!
+}
+
+type Meal {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  name: String!
+  description: String
+  cost: Float
+  calories: Int
+  protein: Int
+  vegan: Boolean
+  location: String
+  createdBy: User!
+  foods: [FoodItem!]!
 }

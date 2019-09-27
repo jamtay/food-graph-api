@@ -11,6 +11,10 @@ var models = [
   {
     name: "FoodItem",
     embedded: false
+  },
+  {
+    name: "Meal",
+    embedded: false
   }
 ];
 exports.Prisma = prisma_lib_1.makePrismaClientClass({

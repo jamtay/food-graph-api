@@ -33,10 +33,10 @@ After running
 2. Enter one of the following queries or mutations in the playground
 
 ```
-# Simple get information about schema query
+# If you name queries, you can keep multiple in one playground
 
 # Sign up a new user
-mutation {
+mutation SignUp {
   signup(
     name: "Alice"
     email: "alice@prisma.io"
@@ -50,7 +50,7 @@ mutation {
 }
 
 #Login with user 
-mutation {
+mutation LogIn {
   login(
     email: "alice@prisma.io"
     password: "graphql"
@@ -67,12 +67,12 @@ mutation {
 }
 
 # Set token in header (all below requests need a token)
-{
-  "Authorization": "Bearer __TOKEN__"
-}
+# {
+#   "Authorization": "Bearer __TOKEN__"
+# }
 
 # Simple get all information about the food items
-query {
+query FoodItemsQuery {
   allFoods {
     links {
       id,
@@ -92,7 +92,7 @@ query {
 }
 
 # Add a new food item
-mutation {
+mutation AddNewFoodItem {
   createFoodItem(
     name:"new-one",
     description:"description",
@@ -108,7 +108,7 @@ mutation {
 }
 
 # Get an individual food item
-query {
+query GetSingleFood {
   food(id:"cjz1o0aw5xzaz0b53am7cjsv5") {
     id,
     name,
@@ -117,7 +117,7 @@ query {
 }
 
 # Get my food items (related to logged in user)
-query {
+query GetMyFoods {
   myFoods {
     id,
     name,
@@ -126,7 +126,7 @@ query {
 }
 
 # Subscription to inform when a new food item is created 
-subscription {
+subscription FoodSubscription {
   foodSubscription {
       id
       name

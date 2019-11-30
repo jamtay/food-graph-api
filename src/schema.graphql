@@ -13,6 +13,7 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload!
   createFoodItem(name: String!, description: String, cost: Float, calories: Int, protein: Int, vegan: Boolean): FoodItem!
   createMeal(name: String!, description: String, cost: Float, calories: Int, protein: Int, vegan: Boolean, location: String): Meal!
+  deleteFoodItem(id: ID!): FoodItem
 }
 
 type Subscription {

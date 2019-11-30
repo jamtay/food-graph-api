@@ -58,10 +58,6 @@ mutation LogIn {
     token
     user {
       email
-      links {
-        url
-        description
-      }
     }
   }
 }
@@ -74,7 +70,6 @@ mutation LogIn {
 # Simple get all information about the food items
 query FoodItemsQuery {
   allFoods {
-    links {
       id,
       name,
       description,
@@ -88,7 +83,6 @@ query FoodItemsQuery {
         name
       }
     }
-  }
 }
 
 # Add a new food item
@@ -136,6 +130,15 @@ subscription FoodSubscription {
         name
         email
       }
+  }
+}
+
+# Delete a food item, must be for the logged in user
+mutation DeleteLink {
+  deleteFoodItem(id: "ck10w6hkeyb6e0b17onup6e6b") {
+    id,
+    name,
+    description
   }
 }
 ```

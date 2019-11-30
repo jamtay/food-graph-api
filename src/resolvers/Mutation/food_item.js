@@ -11,6 +11,26 @@ const foodItem = {
         }
       }
     })
+  },
+  async deleteFoodItem(parent, args, context) {
+    const userId = getUserId(context)
+
+    const foodItemExistsForUser = await context.prisma.$exists.foodItem({
+      id: args.id,
+      createdBy: {
+        connect: {
+          id: userId
+        }
+      }
+    })
+
+    if (!foodItemExistsForUser) {
+      throw new Error(`Food item ${args.id} does not exist for user: ${userId}`)
+    }
+
+    return await context.prisma.deleteFoodItem({
+      id: args.id
+    })
   }
 }
 

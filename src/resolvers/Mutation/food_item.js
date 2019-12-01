@@ -18,9 +18,7 @@ const foodItem = {
     const foodItemExistsForUser = await context.prisma.$exists.foodItem({
       id: args.id,
       createdBy: {
-        connect: {
-          id: userId
-        }
+        id: userId
       }
     })
 

@@ -43,6 +43,7 @@ type FoodItem {
   vegan: Boolean
   createdBy: User!
   mealsPartOf: [Meal!]!
+  createdByLoggedInUser: Boolean
 }
 
 type Meal {

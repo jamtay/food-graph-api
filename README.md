@@ -1,5 +1,7 @@
 # Documentation
 
+This is a backend api written using GraphQL.  It is paired with the frontend [here](https://github.com/jamtay/food-frontend)
+
 ## Commands
 
 * `yarn start` starts GraphQL server on `http://localhost:4000`
